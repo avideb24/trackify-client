@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import './FormCSS.css'
 import useAxiosPublic from '../hooks/useAxiosPublic';
+import useAuth from '../hooks/useAuth';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGEBB_API;
@@ -8,44 +11,72 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const JoinAdmin = () => {
 
-    const axiosPubllic = useAxiosPublic();
+    const { signUpUser } = useAuth();
+    const axiosPublic = useAxiosPublic();
     const [selectedPackage, setSelectedPackage] = useState('');
-    const [uploadedImage, setUploadedImage] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const handleSelect = e => {
+    const handleSelect = (e) => {
         const select = e.target.value;
-        setSelectedPackage(select)
-    }
+        setSelectedPackage(select);
+    };
 
-
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
 
-        const imageFormData = new FormData();
-        imageFormData.append('image', form.companyLogo.files[0]); // Assuming 'companyLogo' is the name of the file input
-        const imageUploadResponse = await axiosPubllic.post(image_hosting_api, imageFormData);
+        try {
+            setLoading(true);
 
-        // Extract the uploaded image URL
-        const uploadedImageUrl = imageUploadResponse.data.data.url;
-        setUploadedImage(uploadedImageUrl);
+            const imageFormData = new FormData();
+            imageFormData.append('image', form.companyLogo.files[0]);
+            const imageUploadResponse = await axiosPublic.post(image_hosting_api, imageFormData);
 
-        // axiosPubllic.post(image_hosting_api)
-        // .then(res => {
-        //     console.log(res);
-        // })
+            const uploadedImageUrl = imageUploadResponse.data.data.url;
 
-        const name = form.name.value;
-        const companyName = form.companyName.value;
-        const birthDate = form.date.value;
-        const email = form.email.value;
-        const password = form.password.value;
+            const name = form.name.value;
+            const companyName = form.companyName.value;
+            const birthDate = form.date.value;
+            const email = form.email.value;
+            const password = form.password.value;
 
-        const userInfo = { name, companyName, birthDate, email, package: selectedPackage, password, companyLogo: uploadedImageUrl };
-        console.log(userInfo);
-    }
+            const userInfo = { name, companyName, birthDate, email, package: selectedPackage, companyLogo: uploadedImageUrl, role: 'admin' };
 
-    console.log(uploadedImage);
+            // Sign up the user using async/await
+            await signUpUser(email, password);
+            form.reset();
+            setLoading(false);
+
+            axiosPublic.post('/employees', userInfo)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Sign Up Successful!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate('/')
+                    }
+                })
+
+        } catch (error) {
+            setLoading(false);
+            console.error('Error during signup:', error);
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Something went wrong!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    };
+
+    console.log(loading);
 
     return (
         <div className=" w-full flex justify-center items-center py-10">
@@ -84,9 +115,9 @@ const JoinAdmin = () => {
                     <label className="block mb-2">Select A Package</label>
                     <select onChange={handleSelect} className="select select-bordered w-full  bg-white h-5 text-primary" defaultValue={selectedPackage} required >
                         <option disabled value=''>Select One</option>
-                        <option value='basic'>Basic</option>
-                        <option value='standard'>Standard</option>
-                        <option value='Premium'>Premium</option>
+                        <option value={5}>Basic</option>
+                        <option value={8}>Standard</option>
+                        <option value={15}>Premium</option>
                     </select>
                 </div>
                 <div className='text-center'>

@@ -2,10 +2,14 @@ import Swal from 'sweetalert2';
 import useAuth from '../hooks/useAuth';
 import './FormCSS.css'
 import SocialLogin from '../components/SocialLogin';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import { useNavigate } from 'react-router-dom';
 
 const JoinEmployee = () => {
 
     const { signUpUser } = useAuth();
+    const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -16,20 +20,40 @@ const JoinEmployee = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        const userInfo = { name, birthDate, email, password };
-        console.log(userInfo);
+        const userInfo = { name, birthDate, email, role: 'employee'};
+        // console.log(userInfo);
 
         signUpUser(email, password)
-        .then(res => {
-            console.log(res.user);
-        })
-        .catch(err => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Something Wrong!',
+            .then(res => {
+                console.log(res.user);
+
+                axiosPublic.post('/employees', userInfo)
+                    .then(res => {
+                        console.log(res.data);
+                        if(res.data.insertedId){
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Sign In Successfully!",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            navigate('/')
+                        }
+                    })
+                    .catch(error => console.log(error))
             })
-            console.error(err)
-        })
+
+            .catch(err => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Something Wrong!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                console.error(err)
+            })
 
     }
 

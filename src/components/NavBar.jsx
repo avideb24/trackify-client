@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import Button from "./Button";
 import './NavBar.css';
 
+
 const NavBar = () => {
 
     return (
@@ -12,51 +13,12 @@ const NavBar = () => {
                 </div>
                 <div className="flex-none">
 
-                    {/* desktop dropdown */}
+                    {/* desktop links / without user */}
                     <div className="hidden sm:flex gap-8 sm:items-center menu-items">
-                        <NavLink
-                            to="/"
-                            className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "active" : ""
-                            }
-                        >
-                            Home
-                        </NavLink>
-                        <NavLink
-                            to="/joinEmployee"
-                            className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "active" : ""
-                            }
-                        >
-                            Join As Employee
-                        </NavLink>
-                        <NavLink
-                            to="/joinAdmin"
-                            className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "active" : ""
-                            }
-                        >
-                            Join As Admin
-                        </NavLink>
-                        <Link to='/login'>
-                            <Button text="Login"></Button>
-                        </Link>
-                    </div>
-
-                    {/* mobile dropdown */}
-                    <div className="dropdown dropdown-end block sm:hidden">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle">
-                            <div className="indicator">
-                                <p>click</p>
-                            </div>
-                        </label>
-                        <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 shadow">
-                            <div className="card-body">
-                                <div className="flex flex-col gap-2 bg-primary">
                                     <NavLink
                                         to="/"
                                         className={({ isActive, isPending }) =>
-                                            isPending ? "pending" : isActive ? "text-yellow-500 font-bold underline" : ""
+                                            isPending ? "pending" : isActive ? "active" : ""
                                         }
                                     >
                                         Home
@@ -64,7 +26,7 @@ const NavBar = () => {
                                     <NavLink
                                         to="/joinEmployee"
                                         className={({ isActive, isPending }) =>
-                                            isPending ? "pending" : isActive ? "text-yellow-500 font-bold underline" : ""
+                                            isPending ? "pending" : isActive ? "active" : ""
                                         }
                                     >
                                         Join As Employee
@@ -72,7 +34,7 @@ const NavBar = () => {
                                     <NavLink
                                         to="/joinAdmin"
                                         className={({ isActive, isPending }) =>
-                                            isPending ? "pending" : isActive ? "text-yellow-500 font-bold underline" : ""
+                                            isPending ? "pending" : isActive ? "active" : ""
                                         }
                                     >
                                         Join As Admin
@@ -81,9 +43,48 @@ const NavBar = () => {
                                         <Button text="Login"></Button>
                                     </Link>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+
+                                {/* mobile dropdown / without user */}
+                                <div className="dropdown dropdown-end block sm:hidden">
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle">
+                                        <div className="indicator">
+                                            <p>click</p>
+                                        </div>
+                                    </label>
+                                    <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 shadow">
+                                        <div className="card-body">
+                                            <div className="flex flex-col gap-2 bg-primary">
+                                                <NavLink
+                                                    to="/"
+                                                    className={({ isActive, isPending }) =>
+                                                        isPending ? "pending" : isActive ? "text-yellow-500 font-bold underline" : ""
+                                                    }
+                                                >
+                                                    Home
+                                                </NavLink>
+                                                <NavLink
+                                                    to="/joinEmployee"
+                                                    className={({ isActive, isPending }) =>
+                                                        isPending ? "pending" : isActive ? "text-yellow-500 font-bold underline" : ""
+                                                    }
+                                                >
+                                                    Join As Employee
+                                                </NavLink>
+                                                <NavLink
+                                                    to="/joinAdmin"
+                                                    className={({ isActive, isPending }) =>
+                                                        isPending ? "pending" : isActive ? "text-yellow-500 font-bold underline" : ""
+                                                    }
+                                                >
+                                                    Join As Admin
+                                                </NavLink>
+                                                <Link to='/login'>
+                                                    <Button text="Login"></Button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                     <div className="dropdown dropdown-end ml-20 hidden">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">

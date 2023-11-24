@@ -17,12 +17,22 @@ const Login = () => {
         signInUser(email, password)
         .then(res => {
             console.log(res.user);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Log In Successful!",
+                showConfirmButton: false,
+                timer: 1500
+              });
         })
         .catch(err => {
             Swal.fire({
-                icon: 'error',
-                title: 'Invalid Login Credentials!',
-            })
+                position: "top-end",
+                icon: "success",
+                title: "Something Wrong!",
+                showConfirmButton: false,
+                timer: 1500
+              });
             console.error(err)
         })
 
