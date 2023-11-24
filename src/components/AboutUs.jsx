@@ -4,7 +4,7 @@ import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const AboutUs = () => {
     return (
-        <div className="max-w-7xl mx-auto py-6">
+        <div className="max-w-7xl mx-auto pb-6">
             <SectionTitle heading="About Us"></SectionTitle>
                 <div className="p-10 rounded-md bg-[#10213b] mt-5">
                     <h2 className="text-secondary text-md">Our Vision:</h2>
@@ -20,7 +20,7 @@ const AboutUs = () => {
                     </ul>
                 </div>
                 <div>
-
+        
                 </div>
         </div>
     );

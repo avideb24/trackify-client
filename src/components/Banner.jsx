@@ -21,8 +21,8 @@ const Banner = () => {
                         <p className="font-cursive text-xl">~ Enhance Efficiency ~</p>
                         <h1 className="text-4xl font-bold"><span className="text-secondary">Trackify</span> - Master Your Assets</h1>
                         <p className="text-sm max-w-md text-[#ffffffc5] pb-6">Effortless asset management for a smarter business. Unlock insights, optimize, thrive with Trackify.</p>
-                        <Link>
-                        <Button text='Join As Employee'></Button>
+                        <Link to='/joinemployee'>
+                            <Button text='Join As Employee'></Button>
                         </Link>
                     </div>
                 </SwiperSlide>
@@ -31,8 +31,8 @@ const Banner = () => {
                         <p className="font-cursive text-xl">~ Enhance Efficiency ~</p>
                         <h1 className="text-4xl font-bold"><span className="text-secondary">Trackify</span> - Master Your Assets</h1>
                         <p className="text-sm max-w-md text-[#ffffffc5] pb-6">Effortless asset management for a smarter business. Unlock insights, optimize, thrive with Trackify.</p>
-                        <Link>
-                        <Button text='Join As Admin'></Button>
+                        <Link to='/joinAdmin'>
+                            <Button text='Join As Admin'></Button>
                         </Link>
                     </div>
                 </SwiperSlide>

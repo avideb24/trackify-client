@@ -1,14 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "./Footer";
 
 const Root = () => {
 
+    const location = useLocation();
+
+    const noNavbarFooter = location.pathname.includes('joinEmployee') || location.pathname.includes('joinAdmin') || location.pathname.includes('login');
+    
     return (
         <div>
-            <NavBar></NavBar>
+            {noNavbarFooter ? '' : <NavBar></NavBar>}
             <Outlet></Outlet>
-            <Footer></Footer>
+            {noNavbarFooter ? '' : <Footer></Footer>}
         </div>
     );
 };
