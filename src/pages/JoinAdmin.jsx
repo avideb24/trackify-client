@@ -48,7 +48,7 @@ const JoinAdmin = () => {
             form.reset();
             setLoading(false);
 
-            axiosPublic.post('/employees', userInfo)
+            axiosPublic.post('/users', userInfo)
                 .then(res => {
                     if (res.data.insertedId) {
                         Swal.fire({
@@ -58,7 +58,7 @@ const JoinAdmin = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        navigate('/')
+                        navigate('/admin')
                     }
                 })
 

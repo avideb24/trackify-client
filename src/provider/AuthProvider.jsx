@@ -15,30 +15,6 @@ const AuthProvider = ({ children }) => {
     const [isEmployee, setIsEmployee] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
-    
-    const { data: userData } = useQuery({
-        queryKey: ['userData'],
-        queryFn: async () => {
-            const res = await axiosPublic.get('/employees');
-            const data = res.data;
-            const isUserEmployee = data.find(user => user.role === 'employee')
-            const isUserAdmin = data.find(user => user.role === 'admin')
-            if (isUserEmployee) {
-                setIsEmployee(true);
-                setIsAdmin(false)
-            }
-            if (isUserAdmin) {
-                setIsEmployee(false);
-                setIsAdmin(true)
-            }
-            const loggedUserData = data.find(loadedUser => loadedUser.email === user.email);
-            return loggedUserData;
-        }
-    });
-
-    console.log(userData);
-
-
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setLoading(false);
@@ -48,6 +24,28 @@ const AuthProvider = ({ children }) => {
             unSubscribe()
         }
     }, []);
+
+    const { data: userData = {}, refetch } = useQuery({
+        queryKey: ['userData', user?.email],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/users');
+            const data = res.data;
+            refetch();
+            const loggedUserData = data.find(loadedUser => loadedUser.email === user.email);
+            if (loggedUserData.role === 'user') {
+                setIsEmployee(true);
+                setIsAdmin(false);
+                refetch();
+            }
+            if (loggedUserData.role === 'admin') {
+                setIsEmployee(false);
+                setIsAdmin(true);
+                refetch();
+            }
+            
+            return loggedUserData;
+        }
+    });
 
     const signUpUser = (email, password) => {
         setLoading(true);
@@ -69,7 +67,7 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, provider);
     }
 
-    const authInfo = { user, loading, signUpUser, signInUser, signOutUser, googleSignIn, isAdmin, isEmployee}
+    const authInfo = { user, loading, signUpUser, signInUser, signOutUser, googleSignIn, isAdmin, isEmployee, userData , refetch}
 
     return (
         <AuthContext.Provider value={authInfo}>

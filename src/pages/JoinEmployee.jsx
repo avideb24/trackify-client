@@ -20,14 +20,14 @@ const JoinEmployee = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        const userInfo = { name, birthDate, email, role: 'employee'};
+        const userInfo = { name, birthDate, email, role: 'user'};
         // console.log(userInfo);
 
         signUpUser(email, password)
             .then(res => {
                 console.log(res.user);
 
-                axiosPublic.post('/employees', userInfo)
+                axiosPublic.post('/users', userInfo)
                     .then(res => {
                         console.log(res.data);
                         if(res.data.insertedId){
@@ -38,7 +38,7 @@ const JoinEmployee = () => {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            navigate('/')
+                            navigate('/employee')
                         }
                     })
                     .catch(error => console.log(error))

@@ -2,10 +2,15 @@ import Swal from 'sweetalert2';
 import useAuth from '../hooks/useAuth';
 import './FormCSS.css'
 import SocialLogin from '../components/SocialLogin';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Login = () => {
 
-    const {signInUser} = useAuth();
+    const { signInUser, isAdmin, isEmployee , refetch} = useAuth();
+    const navigate = useNavigate();
+
+    // console.log(isAdmin, isEmployee);
 
     const handleLogin = e => {
         e.preventDefault();
@@ -15,28 +20,42 @@ const Login = () => {
         const password = form.password.value;
 
         signInUser(email, password)
-        .then(res => {
-            console.log(res.user);
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Log In Successful!",
-                showConfirmButton: false,
-                timer: 1500
-              });
-        })
-        .catch(err => {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Something Wrong!",
-                showConfirmButton: false,
-                timer: 1500
-              });
-            console.error(err)
-        })
+            .then(res => {
+                console.log(res.user);
+                refetch();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Log In Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+        
+            })
+            .catch(err => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Something Wrong!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                console.error(err)
+            })
 
-    }
+    };
+
+    useEffect( () => {
+        if (isAdmin) {
+            navigate('/admin')
+        }
+        if (isEmployee) {
+            navigate('/employee')
+        }
+       
+    },[isAdmin, isEmployee, navigate])
+
+
 
     return (
         <div className="w-full h-screen flex justify-center items-center py-6">
@@ -44,11 +63,11 @@ const Login = () => {
                 <div className="gap-5">
                     <div className="w-full">
                         <label className="block mb-2">Your Email</label>
-                        <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="email" name="email" placeholder="Email" required/>
+                        <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="email" name="email" placeholder="Email" required />
                     </div>
                     <div className="w-full mt-5">
                         <label className="block mb-2">Your Password</label>
-                        <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="password" name="password" placeholder="Password" required/>
+                        <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="password" name="password" placeholder="Password" required />
                     </div>
                 </div>
                 <div className='text-center'>

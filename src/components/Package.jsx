@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "./Button";
 import SectionTitle from "./SectionTitle";
 
@@ -27,6 +28,8 @@ const Package = () => {
             price: 15,
         },
     ];
+
+
     return (
         <div className="max-w-7xl mx-auto py-10">
             <SectionTitle heading="Our Packages"></SectionTitle>
@@ -39,9 +42,9 @@ const Package = () => {
                             <p className='text-sm pb-2'>{item.title}</p>
                             <div className='w-32 h-1 mx-auto bg-secondary'></div>
 
-                            <div>
+                            <Link to={`/admin/payment/${item.price}`}>
                                 <Button text="Purchase"></Button>
-                            </div>
+                            </Link>
                         </div>
                     )
                 }
