@@ -4,10 +4,12 @@ import '../../components/NavBar.css'
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaRegUserCircle } from "react-icons/fa";
+import useCheckUser from "../../hooks/useCheckUser";
 
 const EmployeeNavBar = () => {
 
-    const { signOutUser, userData } = useAuth();
+    const {userData} = useCheckUser();
+    const { signOutUser,  } = useAuth();
     const navigate = useNavigate();
 
 

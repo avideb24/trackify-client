@@ -5,10 +5,12 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useEffect } from "react";
+import useCheckUser from "../../hooks/useCheckUser";
 
 const AdminNavBar = () => {
 
-    const { signOutUser, userData , refetch} = useAuth();
+    const {userData , refetch} = useCheckUser();
+    const { signOutUser} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {

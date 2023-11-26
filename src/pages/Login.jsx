@@ -4,13 +4,15 @@ import './FormCSS.css'
 import SocialLogin from '../components/SocialLogin';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import useCheckUser from '../hooks/useCheckUser';
 
 const Login = () => {
 
-    const { signInUser, isAdmin, isEmployee , refetch} = useAuth();
+    const { isAdmin, isEmployee , refetch} = useCheckUser();
+    const { signInUser} = useAuth();
     const navigate = useNavigate();
 
-    // console.log(isAdmin, isEmployee);
+    console.log(isAdmin, isEmployee);
 
     const handleLogin = e => {
         e.preventDefault();

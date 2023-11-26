@@ -1,12 +1,12 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
-import useAuth from "../hooks/useAuth";
+import useCheckUser from "../hooks/useCheckUser";
 
 
 const UpdateUser = () => {
 
-    const {isAdmin, isEmployee} = useAuth();
+    const { isAdmin, isEmployee } = useCheckUser();
     const user = useLoaderData();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
@@ -18,27 +18,27 @@ const UpdateUser = () => {
         const name = form.name.value;
         const birthDate = form.date.value;
 
-        const updatedInfo = {name, birthDate};
+        const updatedInfo = { name, birthDate };
         axiosPublic.patch(`/users/${user._id}`, updatedInfo)
-        .then(res => {
-            console.log(res.data);
-            if(res.data.modifiedCount > 0){
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Info Updated Successfully!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                if(isAdmin){
-                    navigate("/admin")
+            .then(res => {
+                console.log(res.data);
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Info Updated Successfully!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    if (isAdmin) {
+                        navigate("/admin")
+                    }
+                    if (isEmployee) {
+                        navigate("/employee")
+                    }
                 }
-                if(isEmployee){
-                    navigate("/employee")
-                }
-            }
-        })
-        
+            })
+
     }
 
     return (

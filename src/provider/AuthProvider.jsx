@@ -2,8 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "./firebase.config";
-import useAxiosPublic from "../hooks/useAxiosPublic";
-import { useQuery } from "@tanstack/react-query";
 
 export const AuthContext = createContext(null);
 
@@ -11,9 +9,6 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const axiosPublic = useAxiosPublic();
-    const [isEmployee, setIsEmployee] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
@@ -24,28 +19,6 @@ const AuthProvider = ({ children }) => {
             unSubscribe()
         }
     }, []);
-
-    const { data: userData = {}, refetch } = useQuery({
-        queryKey: ['userData', user?.email],
-        queryFn: async () => {
-            const res = await axiosPublic.get('/users');
-            const data = res.data;
-            refetch();
-            const loggedUserData = data.find(loadedUser => loadedUser.email === user.email);
-            if (loggedUserData.role === 'user') {
-                setIsEmployee(true);
-                setIsAdmin(false);
-                refetch();
-            }
-            if (loggedUserData.role === 'admin') {
-                setIsEmployee(false);
-                setIsAdmin(true);
-                refetch();
-            }
-            
-            return loggedUserData;
-        }
-    });
 
     const signUpUser = (email, password) => {
         setLoading(true);
@@ -67,7 +40,7 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, provider);
     }
 
-    const authInfo = { user, loading, signUpUser, signInUser, signOutUser, googleSignIn, isAdmin, isEmployee, userData , refetch}
+    const authInfo = { user, loading, signUpUser, signInUser, signOutUser, googleSignIn}
 
     return (
         <AuthContext.Provider value={authInfo}>

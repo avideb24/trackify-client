@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import SectionTitle from "./SectionTitle";
+import useAuth from "../hooks/useAuth";
 
 
 const Package = () => {
+
+    const { user } = useAuth();
 
     const packages = [
         {
@@ -42,9 +45,13 @@ const Package = () => {
                             <p className='text-sm pb-2'>{item.title}</p>
                             <div className='w-32 h-1 mx-auto bg-secondary'></div>
 
-                            <Link to={`/admin/payment/${item.price}`}>
-                                <Button text="Purchase"></Button>
-                            </Link>
+                            {
+                                user ?
+                                    <Link to={`/admin/payment/${item.price}`}>
+                                        <Button text="Purchase"></Button>
+                                    </Link>
+                                    : ''
+                            }
                         </div>
                     )
                 }

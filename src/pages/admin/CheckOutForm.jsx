@@ -101,7 +101,7 @@ const CheckOutForm = ({ price }) => {
                     },
                 }}
             />
-            <button type="submit" disabled={!stripe || !clientSecret} className="mt-5 bg-secondary py-1 px-5 text-primary rounded-md">
+            <button type="submit" disabled={!stripe || !clientSecret} className="mt-5 bg-secondary cursor-pointer py-1 px-5 text-primary rounded-md">
                 Pay
             </button>
             <p className="text-red-500">{error}</p>
