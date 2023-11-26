@@ -44,20 +44,31 @@ const AddEmployee = () => {
         });
     };
 
-    const handleAddEmployee = async() => {
+    const handleAddEmployee = async () => {
         if (selectedUsers.length === 0) {
             Swal.fire({
                 icon: "error",
                 title: "Please Select Employees",
             });
         }
-        const adminEmail = user?.email;
-        const teamData = { adminEmail, teamMembers: selectedUsers };
-        console.log(teamData);
+        else {
+            const adminEmail = user?.email;
+            const teamData = { adminEmail, teamMembers: selectedUsers };
+            console.log(teamData);
 
 
-        const res = await axios.post('http://localhost:5000/teams', teamData);
-        console.log(res.data);
+            const res = await axios.post('http://localhost:5000/teams', teamData);
+            console.log(res.data);
+            if (res.data.message) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Added Successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
     }
 
 
@@ -102,8 +113,8 @@ const AddEmployee = () => {
                                         <th>
                                             <label className="border-2 border-[#3bedb2] rounded-md">
                                                 <input type="checkbox" className="checkbox"
-                                                     checked={selectedUsers.includes(user.email)}
-                                                     onChange={() => handleCheckboxChange(user.email)}
+                                                    checked={selectedUsers.includes(user.email)}
+                                                    onChange={() => handleCheckboxChange(user.email)}
                                                 />
                                             </label>
                                         </th>
@@ -124,9 +135,9 @@ const AddEmployee = () => {
                             }
                         </tbody>
                     </table>
-                    <div  className="text-center mt-10">
+                    <div className="text-center mt-10">
                         {/* <Button text={"Add"}></Button> */}
-                        <button type="button" onClick={handleAddEmployee}  className="btn btn-primary">Add</button>
+                        <button type="button" onClick={handleAddEmployee} className="bg-secondary px-6 py-2 text-primary rounded-md">Add</button>
                     </div>
                 </div>
             </div>
