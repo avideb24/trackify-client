@@ -12,7 +12,7 @@ const EmployeeList = () => {
     const axiosSecure = useAxiosSecure();
     const [employeeData, setEmployeeData] = useState([]);
 
-    const { data: employeeList = [], refetch } = useQuery({
+    const { data: employeeList = [], refetch, isPending } = useQuery({
         queryKey: ['employeeList', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get('/teams');
@@ -58,63 +58,67 @@ const EmployeeList = () => {
     return (
         <div className="max-w-7xl mx-auto my-10">
             <h2>Total Employees: {employeeData.length}</h2>
-            {
-                employeeData.length === 0 ?
-                    <div className="text-center font-bold">
-                        No Data Found
-                    </div>
-                    :
-                    <div className="my-5">
-                        <div className="overflow-x-auto">
-                            <table className="table uppercase">
-                                <thead className="text-secondary">
-                                    <tr>
-                                        <th></th>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Role</th>
-                                        <th>Activity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        employeeData?.map((employee, idx) =>
-                                            <tr key={idx}>
-                                                <th>
-                                                    {idx + 1}
-                                                </th>
-                                                <td>
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="avatar">
-                                                            <div className="mask mask-squircle w-12 h-12">
-                                                                <img src={employee.image} />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    {employee.name}
-                                                </td>
-                                                <td>{employee.role}</td>
-                                                <th>
-                                                    <button onClick={() => handleDeleteEmployee(employee.email)} className="text-2xl text-red-600 "><FaTrashAlt></FaTrashAlt></button>
-                                                </th>
-                                            </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </table>
+            <div>
+                {
+                    isPending ?
+                    <div className="text-center text-secondary py-6">Data Loading...</div>
+                        :
+                        <div>
+                            {
+                                employeeData.length === 0 ?
+                                    <div className="text-center font-bold">
+                                        No Data Found
+                                    </div>
+                                    :
+                                    <div className="my-5">
+                                        <div className="overflow-x-auto">
+                                            <table className="table uppercase">
+                                                <thead className="text-secondary">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Image</th>
+                                                        <th>Name</th>
+                                                        <th>Role</th>
+                                                        <th>Activity</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        employeeData?.map((employee, idx) =>
+                                                            <tr key={idx}>
+                                                                <th>
+                                                                    {idx + 1}
+                                                                </th>
+                                                                <td>
+                                                                    <div className="flex items-center gap-3">
+                                                                        <div className="avatar">
+                                                                            <div className="mask mask-squircle w-12 h-12">
+                                                                                <img src={employee.image} />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    {employee.name}
+                                                                </td>
+                                                                <td>{employee.role}</td>
+                                                                <th>
+                                                                    <button onClick={() => handleDeleteEmployee(employee.email)} className="text-2xl text-red-600 "><FaTrashAlt></FaTrashAlt></button>
+                                                                </th>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                            }
                         </div>
-                    </div>
-            }
+                }
+            </div>
         </div>
     );
 };
 
 export default EmployeeList;
-
-
-
-
-
 

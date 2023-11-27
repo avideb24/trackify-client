@@ -5,9 +5,8 @@ import AdminNavBar from "./AdminNavBar";
 const AdminHome = () => {
 
 
-
     return (
-        <div className="w-full h-screen">
+        <div className="w-full">
             <AdminNavBar></AdminNavBar>
             <Outlet></Outlet>
         </div>

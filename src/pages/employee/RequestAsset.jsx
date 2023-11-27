@@ -11,7 +11,7 @@ const RequestAsset = () => {
     const { userData } = useCheckUser();
     const axiosPublic = useAxiosPublic();
 
-    const { data: assetsList = [], refetch } = useQuery({
+    const { data: assetsList = [], refetch, isPending } = useQuery({
         queryKey: ['assetsList'],
         queryFn: async () => {
             const res = await axiosPublic.get('/assets');
@@ -81,30 +81,37 @@ const RequestAsset = () => {
                     <option value={"Non-Returnable"}>Non-Returnable</option>
                 </select>
             </div>
-            <div className="flex flex-wrap gap-4">
+            <div>
                 {
-                    assetsList?.map(asset =>
-                        <div key={asset._id} className="w-60 flex flex-col p-4 bg-[#132747] text-white rounded-md text-center space-y-3">
-                            <h2>Name: {asset.productName}</h2>
-                            <p>Quantity: {asset.productQuan}</p>
-                            <p>Type: {asset.selectedType}</p>
-                            <div>
-                                <button className="bg-secondary text-primary py-1 px-5 rounded-md" onClick={() => document.getElementById('my_modal_3').showModal()}>Request</button>
-                                <dialog id="my_modal_3" className="modal">
-                                    <div className="modal-box bg-primary border-2">
-                                        <form method="dialog">
-                                            {/* if there is a button in form, it will close the modal */}
-                                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                        </form>
-                                        <form onSubmit={(e) => handleRequestAsset(e, asset.productName, asset.selectedType)} className="flex flex-col justify-center my-6 gap-8">
-                                            <textarea className="rounded-md bg-white text-primary p-2 h-30 outline-none resize-none" name="text" placeholder="Notes..."></textarea >
-                                            <input type="submit" className="bg-secondary text-primary py-1 px-5 rounded-md cursor-pointer w-32 mx-auto" value="Request" />
-                                        </form>
+                    isPending ?
+                    <div className="text-center text-secondary py-6">Data Loading...</div>
+                        :
+                        <div className="flex flex-wrap gap-4">
+                            {
+                                assetsList?.map(asset =>
+                                    <div key={asset._id} className="w-60 flex flex-col p-4 bg-[#132747] text-white rounded-md text-center space-y-3">
+                                        <h2>Name: {asset.productName}</h2>
+                                        <p>Quantity: {asset.productQuan}</p>
+                                        <p>Type: {asset.selectedType}</p>
+                                        <div>
+                                            <button className="bg-secondary text-primary py-1 px-5 rounded-md" onClick={() => document.getElementById('my_modal_3').showModal()}>Request</button>
+                                            <dialog id="my_modal_3" className="modal">
+                                                <div className="modal-box bg-primary border-2">
+                                                    <form method="dialog">
+                                                        {/* if there is a button in form, it will close the modal */}
+                                                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                                    </form>
+                                                    <form onSubmit={(e) => handleRequestAsset(e, asset.productName, asset.selectedType)} className="flex flex-col justify-center my-6 gap-8">
+                                                        <textarea className="rounded-md bg-white text-primary p-2 h-30 outline-none resize-none" name="text" placeholder="Notes..."></textarea >
+                                                        <input type="submit" className="bg-secondary text-primary py-1 px-5 rounded-md cursor-pointer w-32 mx-auto" value="Request" />
+                                                    </form>
+                                                </div>
+                                            </dialog>
+                                        </div>
                                     </div>
-                                </dialog>
-                            </div>
+                                )
+                            }
                         </div>
-                    )
                 }
             </div>
         </div>

@@ -20,51 +20,34 @@ const AllRequest = () => {
 
     return (
         <div className="max-w-7xl mx-auto py-10">
+            <div className="mb-10 mt-5 flex justify-center">
+                <form>
+                    <input className="w-60 bg-[#193158] text-white px-3 py-2 rounded-md outline-none mr-4" type="text" name="text" placeholder="Search Here..." />
+                    <input className="bg-secondary text-primary px-5 py-2 cursor-pointer rounded-md" type="submit" value="Search" />
+                </form>
+            </div>
             {
                 isPending ?
                     <div className="text-center text-secondary">Data Loading...</div>
                     :
-                    <div>
-                        <div className="overflow-x-auto">
-                            <table className="table">
-                                {/* head */}
-                                <thead className="text-secondary">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Requester Name</th>
-                                        <th>Requester Email</th>
-                                        <th>Date</th>
-                                        <th>Note</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        requestedAsset?.map(asset =>
-                                            <tr key={asset._id} className="bg-primary text-white">
-                                                <th>{asset.assetName}</th>
-                                                <td>{asset.assetType}</td>
-                                                <td>{asset.userName}</td>
-                                                <td>{asset.userEmail}</td>
-                                                <td>{asset.date}</td>
-                                                <td>{asset.note}</td>
-                                                <td>{asset.status}</td>
-                                                <td>
-                                                    <button>Accept</button>
-                                                </td>
-                                                <td>
-                                                    <button>Reject</button>
-                                                </td>
-
-                                            </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="flex flex-wrap gap-5">
+                        {
+                            requestedAsset?.map(asset =>
+                                <div key={asset._id} className="bg-[#132747] w-96 text-center rounded-md space-y-3 p-4">
+                                    <h2>Asset: {asset.assetName}</h2>
+                                    <p>Type: {asset.assetType}</p>
+                                    <p>Employee Name: {asset.userName}</p>
+                                    <p>Employee Email: {asset.userEmail}</p>
+                                    <p>Date: {asset.date}</p>
+                                    <p>Note: {asset.note}</p>
+                                    <p>Status: {asset.status}</p>
+                                    <div className="flex justify-center gap-4 pt-3">
+                                        <button className="bg-green-600 px-3 py-1 rounded-md">Accept</button>
+                                        <button className="bg-red-600 px-3 py-1 rounded-md">Reject</button>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
             }
         </div>
