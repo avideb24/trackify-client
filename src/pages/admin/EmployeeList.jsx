@@ -67,7 +67,6 @@ const EmployeeList = () => {
                     <div className="my-5">
                         <div className="overflow-x-auto">
                             <table className="table uppercase">
-                                {/* head */}
                                 <thead className="text-secondary">
                                     <tr>
                                         <th></th>
@@ -113,3 +112,9 @@ const EmployeeList = () => {
 };
 
 export default EmployeeList;
+
+
+
+
+
+

@@ -4,7 +4,7 @@ import EmployeeNavBar from "./EmployeeNavBar";
 
 const EmployeeHome = () => {
     return (
-        <div className="w-full h-screen">
+        <div className="w-full h-full bg-primary">
             <EmployeeNavBar></EmployeeNavBar>
             <Outlet></Outlet>
         </div>

@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 
 const AddEmployee = () => {
@@ -14,7 +15,6 @@ const AddEmployee = () => {
     const axiosSecure = useAxiosSecure();
 
     const [totalAssets, setTotalAssets] = useState([]);
-    const [loadedUsers, setLoadedUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
 
     useEffect(() => {
@@ -25,14 +25,15 @@ const AddEmployee = () => {
             })
     }, [axiosSecure, user?.email]);
 
-    useEffect(() => {
-        axiosSecure.get('/users')
-            .then(res => {
-                // console.log(res.data);
-                const users = res.data.filter(user => user.role === 'user')
-                setLoadedUsers(users)
-            })
-    }, [axiosSecure])
+
+    const { data: getUsers = [], refetch } = useQuery({
+        queryKey: ['getUsers'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/users');
+            const users = res.data.filter(user => user.role === 'user');
+            return users;
+        }
+    })
 
     const handleCheckboxChange = (userEmail) => {
         setSelectedUsers(prevSelectedUsers => {
@@ -60,6 +61,7 @@ const AddEmployee = () => {
             const res = await axios.post('http://localhost:5000/teams', teamData);
             console.log(res.data);
             if (res.data.message) {
+                refetch();
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -73,16 +75,7 @@ const AddEmployee = () => {
 
 
 
-    // const { data: totalAssets = [] } = useQuery({
-    //     queryKey: ['totalAssets'],
-    //     queryFn: async () => {
-    //         const res = await axiosPublic.get('/assets');
-    //         const myAssets = res.data.filter(asset => asset.email === user.email);
-    //         return myAssets;
-    //     }
-    // })
-
-    // console.log(loadedUsers);
+    
 
 
     return (
@@ -108,7 +101,7 @@ const AddEmployee = () => {
                         </thead>
                         <tbody>
                             {
-                                loadedUsers.map(user =>
+                                getUsers.map(user =>
                                     <tr key={user._id}>
                                         <th>
                                             <label className="border-2 border-[#3bedb2] rounded-md">

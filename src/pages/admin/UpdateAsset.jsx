@@ -36,7 +36,7 @@ const UpdateAsset = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Asset Added Successfully!',
+                    title: 'Asset Updated Successfully!',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -58,10 +58,8 @@ const UpdateAsset = () => {
                         <label className="block mb-2">Product Type</label>
                         <select onChange={handleSelect} className="select select-bordered w-full  bg-white h-5 text-primary" defaultValue={selectedType} required >
                             <option disabled value=''>Select One</option>
-                            <option value={"Electronic Devices"}>Electronic Devices</option>
-                            <option value={"Stationary"}>Stationary</option>
-                            <option value={"Furniture"}>Furniture</option>
-                            <option value={"Tools"}>Tools</option>
+                            <option value={"Returnable"}>Returnable</option>
+                            <option value={"Non-Returnable"}>Non-Returnable</option>
                         </select>
                     </div>
                     <div className="w-full mt-5">

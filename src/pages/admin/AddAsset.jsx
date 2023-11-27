@@ -46,7 +46,7 @@ const AddAsset = () => {
     }
 
     return (
-        <div className="w-full h-screen flex justify-center items-center py-6">
+        <div className="w-full  flex justify-center items-center py-10">
             <form className="w-96 mx-auto  py-16 px-8 rounded-lg form-bg" onSubmit={handleAddAsset}>
                 <div className="gap-5">
                     <div className="w-full">
@@ -57,10 +57,8 @@ const AddAsset = () => {
                         <label className="block mb-2">Product Type</label>
                         <select onChange={handleSelect} className="select select-bordered w-full  bg-white h-5 text-primary" defaultValue={selectedType} required >
                             <option disabled value=''>Select One</option>
-                            <option value={"Electronic Devices"}>Electronic Devices</option>
-                            <option value={"Stationary"}>Stationary</option>
-                            <option value={"Furniture"}>Furniture</option>
-                            <option value={"Tools"}>Tools</option>
+                            <option value={"Returnable"}>Returnable</option>
+                            <option value={"Non-Returnable"}>Non-Returnable</option>
                         </select>
                     </div>
                     <div className="w-full mt-5">
