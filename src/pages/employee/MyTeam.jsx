@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { FaRegUserCircle } from "react-icons/fa";
 import SectionTitle from "../../components/SectionTitle";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 
 const MyTeam = () => {
@@ -47,10 +48,11 @@ const MyTeam = () => {
         }
     }, [teamData])
 
-    // console.log(teamData);
-
     return (
         <div className="max-w-7xl mx-auto py-10">
+            <Helmet>
+                <title>My Team</title>
+            </Helmet>
             {
                 teamData.message === false ?
                     <div className="text-center text-red-600 font-bold my-10">You are not in any tean.</div>

@@ -58,7 +58,7 @@ const JoinAdmin = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        navigate('/admin')
+                        navigate('/admin/payment/5')
                     }
                 })
 
@@ -80,33 +80,33 @@ const JoinAdmin = () => {
 
     return (
         <div className=" w-full flex justify-center items-center py-10">
-            <form className="w-4/5 mx-auto  p-16 rounded-lg form-bg" onSubmit={handleSubmit}>
-                <div className="flex gap-5">
-                    <div className="w-1/2 mb-5">
+            <form className="w-4/5 mx-auto p-6 md:p-16 rounded-lg form-bg" onSubmit={handleSubmit}>
+                <div className="flex flex-col md:flex-row gap-5">
+                    <div className="w-full md:w-1/2 md:mb-5">
                         <label className="block mb-2">Your Name</label>
                         <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="text" name="name" placeholder="Name" required />
                     </div>
-                    <div className="w-1/2">
+                    <div className="w-full md:w-1/2 mb-5 md:mb-0">
                         <label className="block mb-2">Your Date Of Birth</label>
                         <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="date" name="date" id="" required />
                     </div>
                 </div>
-                <div className="flex gap-5">
-                    <div className="w-1/2 mb-5">
+                <div className="flex flex-col md:flex-row gap-5">
+                    <div className="w-full md:w-1/2 md:mb-5">
                         <label className="block mb-2">Your Company Name</label>
                         <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="text" name="companyName" placeholder="Company Name" required />
                     </div>
-                    <div className="w-1/2">
+                    <div className="w-full md:w-1/2 mb-5 md:mb-0">
                         <label className="block mb-2">Your Company Logo</label>
                         <input type="file" className="file-input file-input-bordered w-full bg-white h-9 text-primary" name="companyLogo" required />
                     </div>
                 </div>
-                <div className="flex gap-5">
-                    <div className="w-1/2">
+                <div className="flex flex-col md:flex-row gap-5">
+                    <div className="w-full md:w-1/2">
                         <label className="block mb-2">Your Email</label>
                         <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="email" name="email" placeholder="Email" required />
                     </div>
-                    <div className="w-1/2">
+                    <div className="w-full md:w-1/2">
                         <label className="block mb-2">Your Password</label>
                         <input className="w-full h-9 px-2 outline-none rounded-lg bg-white text-primary" type="password" name="password" placeholder="Password" required />
                     </div>

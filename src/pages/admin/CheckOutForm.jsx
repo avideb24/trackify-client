@@ -105,13 +105,16 @@ const CheckOutForm = ({ price }) => {
                 Pay
             </button>
             <p className="text-red-500">{error}</p>
-            {transactionId && <p className="text-green-600 text-md font-bold mt-2">Transaction Id: {transactionId}</p>
-            }
-            <div className="inline-block mt-16">
+            {transactionId && 
+            <div>
+                <p className="text-green-600 text-md font-bold mt-2">Transaction Id: {transactionId}</p>
+                <div className="inline-block mt-10">
                 <Link to='/admin'>
                     <Button text="Go Home"></Button>
                 </Link>
             </div>
+            </div>
+            }          
         </form>
     );
 };

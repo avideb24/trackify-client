@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 
 const AddAsset = () => {
@@ -47,6 +48,9 @@ const AddAsset = () => {
 
     return (
         <div className="w-full  flex justify-center items-center py-10">
+             <Helmet>
+                <title>Add Asset</title>
+            </Helmet>
             <form className="w-96 mx-auto  py-16 px-8 rounded-lg form-bg" onSubmit={handleAddAsset}>
                 <div className="gap-5">
                     <div className="w-full">

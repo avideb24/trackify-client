@@ -7,6 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 
 
 const AddEmployee = () => {
@@ -55,8 +56,7 @@ const AddEmployee = () => {
         else {
             const adminEmail = user?.email;
             const teamData = { adminEmail, teamMembers: selectedUsers };
-            console.log(teamData);
-
+            // console.log(teamData);
 
             const res = await axios.post('http://localhost:5000/teams', teamData);
             console.log(res.data);
@@ -75,19 +75,24 @@ const AddEmployee = () => {
 
 
 
-    
+
 
 
     return (
         <div className="max-w-7xl mx-auto py-10">
-            <div className="text-xl max-w-xl mx-auto flex justify-between items-center">
+             <Helmet>
+                <title>Add Employee</title>
+            </Helmet>
+            <div className="text-lg lg:text-xl max-w-xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
                 <h2>Total Assets: {totalAssets?.length}</h2>
-                <h2>Package Limit: 10</h2>
-                <Link to="/admin/package">
-                    <Button text={"Increase Limit"}></Button>
-                </Link>
+                <div className="flex items-center justify-center flex-1 gap-6">
+                    <h2>Package Limit: 10</h2>
+                    <Link to="/admin/package">
+                        <Button text={"Increase Limit"}></Button>
+                    </Link>
+                </div>
             </div>
-            <div>
+            <div className="pt-6 pb-10">
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}

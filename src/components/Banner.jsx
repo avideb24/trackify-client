@@ -18,9 +18,9 @@ const Banner = () => {
             <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
                 <SwiperSlide className='mb-20'>
                     <div className="max-w-xl space-y-3">
-                        <p className="font-cursive text-xl">~ Enhance Efficiency ~</p>
-                        <h1 className="text-4xl font-bold"><span className="text-secondary">Trackify</span> - Master Your Assets</h1>
-                        <p className="text-sm max-w-md text-[#ffffffc5] pb-6">Effortless asset management for a smarter business. Unlock insights, optimize, thrive with Trackify.</p>
+                        <p className="font-cursive text-sm md:text-xl">~ Enhance Efficiency ~</p>
+                        <h1 className="text-xl md:text-4xl font-bold"><span className="text-secondary">Trackify</span> - Master Your Assets</h1>
+                        <p className="text-xs md:text-sm max-w-md text-[#ffffffc5] pb-6">Effortless asset management for a smarter business. Unlock insights, optimize, thrive with Trackify.</p>
                         <Link to='/joinEmployee'>
                             <Button text='Join As Employee'></Button>
                         </Link>
@@ -28,9 +28,9 @@ const Banner = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className="max-w-xl space-y-3">
-                        <p className="font-cursive text-xl">~ Enhance Efficiency ~</p>
-                        <h1 className="text-4xl font-bold"><span className="text-secondary">Trackify</span> - Master Your Assets</h1>
-                        <p className="text-sm max-w-md text-[#ffffffc5] pb-6">Effortless asset management for a smarter business. Unlock insights, optimize, thrive with Trackify.</p>
+                        <p className="font-cursive text-sm md:text-xl">~ Enhance Efficiency ~</p>
+                        <h1 className="text-xl md:text-4xl font-bold"><span className="text-secondary">Trackify</span> - Master Your Assets</h1>
+                        <p className="text-xs md:text-sm max-w-md text-[#ffffffc5] pb-6">Effortless asset management for a smarter business. Unlock insights, optimize, thrive with Trackify.</p>
                         <Link to='/joinAdmin'>
                             <Button text='Join As Admin'></Button>
                         </Link>

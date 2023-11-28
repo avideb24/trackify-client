@@ -3,6 +3,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useCheckUser from "../../hooks/useCheckUser";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 
 const RequestAsset = () => {
@@ -68,9 +69,12 @@ const RequestAsset = () => {
 
     return (
         <div className="max-w-7xl mx-auto pt-10 pb-40">
-            <div className="flex gap-5 justify-between my-6">
+            <Helmet>
+                <title>Request An Asset</title>
+            </Helmet>
+            <div className="flex flex-col sm:flex-row gap-5 justify-between items-center my-6">
                 <div>
-                    <form onSubmit={handleSearch}>
+                    <form onSubmit={handleSearch} className="flex flex-wrap gap-2">
                         <input className="w-60 bg-[#193158] text-white px-3 py-2 rounded-md outline-none mr-4" type="text" name="text" placeholder="Search Here..." />
                         <input className="bg-secondary text-primary px-5 py-2 cursor-pointer rounded-md" type="submit" value="Search" />
                     </form>
@@ -84,9 +88,9 @@ const RequestAsset = () => {
             <div>
                 {
                     isPending ?
-                    <div className="text-center text-secondary py-6">Data Loading...</div>
+                        <div className="text-center text-secondary py-6">Data Loading...</div>
                         :
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-wrap justify-center pt-6 gap-4">
                             {
                                 assetsList?.map(asset =>
                                     <div key={asset._id} className="w-60 flex flex-col p-4 bg-[#132747] text-white rounded-md text-center space-y-3">
@@ -94,8 +98,8 @@ const RequestAsset = () => {
                                         <p>Quantity: {asset.productQuan}</p>
                                         <p>Type: {asset.selectedType}</p>
                                         <div>
-                                            <button className="bg-secondary text-primary py-1 px-5 rounded-md" onClick={() => document.getElementById('my_modal_3').showModal()}>Request</button>
-                                            <dialog id="my_modal_3" className="modal">
+                                            <button className="bg-secondary text-primary py-1 px-5 rounded-md" onClick={() => document.getElementById(`my_modal_${asset._id}`).showModal()}>Request</button>
+                                            <dialog id={`my_modal_${asset._id}`} className="modal">
                                                 <div className="modal-box bg-primary border-2">
                                                     <form method="dialog">
                                                         {/* if there is a button in form, it will close the modal */}

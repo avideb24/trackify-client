@@ -6,7 +6,7 @@ import useCheckUser from "../hooks/useCheckUser";
 
 const UpdateUser = () => {
 
-    const { isAdmin, isEmployee } = useCheckUser();
+    const { isAdmin, isEmployee, refetch } = useCheckUser();
     const user = useLoaderData();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
@@ -30,6 +30,7 @@ const UpdateUser = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    refetch()
                     if (isAdmin) {
                         navigate("/admin")
                     }

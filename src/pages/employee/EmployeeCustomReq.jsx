@@ -3,6 +3,8 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGEBB_API;
@@ -13,6 +15,7 @@ const EmployeeCustomReq = () => {
     const { user } = useAuth();
     const axiosPublic = useAxiosPublic();
     const [selectedType, setSelectedType] = useState('');
+    const navigate = useNavigate();
 
     const { data: adminEmail = '' } = useQuery({
         queryKey: ['adminEmailCustom', user?.email],
@@ -43,7 +46,7 @@ const EmployeeCustomReq = () => {
         const need = form.need.value;
         const info = form.info.value;
 
-        const customRequest = { name, price, need, info, adminEmail, type: selectedType, image: uploadedImageUrl };
+        const customRequest = { name, price, need, info, userEmail: user.email, adminEmail, type: selectedType, image: uploadedImageUrl };
         console.log(customRequest);
         await axiosPublic.post('/customRequests', customRequest)
             .then(res => {
@@ -55,6 +58,7 @@ const EmployeeCustomReq = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    navigate('/employee')
                     form.reset();
                 }
             })
@@ -63,7 +67,10 @@ const EmployeeCustomReq = () => {
 
     return (
         <div className="max-w-7xl mx-auto py-8">
-            <form className="w-96 mx-auto  py-16 px-8 rounded-lg form-bg" onSubmit={handleAddCustomAsset}>
+            <Helmet>
+                <title>Custom Asset Request</title>
+            </Helmet>
+            <form className="w-full sm:w-96 mx-auto p-5 sm:py-16 sm:px-8 rounded-lg form-bg" onSubmit={handleAddCustomAsset}>
                 <div className="gap-5">
                     <div className="w-full">
                         <label className="block mb-2">Asset Name</label>
@@ -87,11 +94,11 @@ const EmployeeCustomReq = () => {
                     </div>
                     <div className="w-full mt-5">
                         <label className="block mb-2">Asset Need</label>
-                        <textarea name="need" className="bg-white text-primary resize-none w-full h-20 rounded-md p-3 outline-none" placeholder="Why You Need This?"></textarea>
+                        <textarea name="need" className="bg-white text-primary resize-none w-full h-20 rounded-md p-3 outline-none" placeholder="Why You Need This?" required></textarea>
                     </div>
                     <div className="w-full mt-5">
                         <label className="block mb-2">Additional Information</label>
-                        <textarea name="info" className="bg-white text-primary resize-none w-full h-20 rounded-md p-3 outline-none" placeholder="Info About Asset"></textarea>
+                        <textarea name="info" className="bg-white text-primary resize-none w-full h-20 rounded-md p-3 outline-none" placeholder="Info About Asset" required></textarea>
                     </div>
                 </div>
                 <div className='text-center'>

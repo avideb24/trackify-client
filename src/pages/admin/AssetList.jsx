@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { useState } from "react";
 
 
@@ -14,12 +15,12 @@ const AssetList = () => {
     const [filteredAssets, setFilteredAssets] = useState([]);
     // const [selectQuantity, setsetSelectQuantity] = useState(null);
 
-    const { data: assets = [], refetch, isPending } = useQuery({
-        queryKey: ['adminAssets'],
+    const { data: assets = [], refetch, isLoading } = useQuery({
+        queryKey: ['adminAssets', user?.email],
         queryFn: async () => {
             const res = await axiosPublic.get('/assets');
             const thisAdminAssets = res.data.filter(asset => asset?.email === user?.email);
-            setFilteredAssets(assets)
+            setFilteredAssets(thisAdminAssets)
             return thisAdminAssets;
         }
     })
@@ -59,8 +60,11 @@ const AssetList = () => {
     console.log(filteredAssets);
 
     return (
-        <div className="max-w-7xl mx-auto py-6">
-            <div className="flex gap-5 justify-between my-6">
+        <div className="max-w-7xl mx-auto pt-6 pb-20">
+             <Helmet>
+                <title>Asset List</title>
+            </Helmet>
+            <div className="flex flex-col md:flex-row gap-5 justify-between items-center my-6">
                 <div>
                     <form onSubmit={handleSearch}>
                         <input className="w-60 bg-[#193158] text-white px-3 py-2 rounded-md outline-none mr-4" type="text" name="text" placeholder="Search Here..." />
@@ -83,12 +87,12 @@ const AssetList = () => {
             </div>
             <div>
                 {
-                    isPending ?
+                    isLoading ?
                         <div className="text-center">
                             Data Loading...
                         </div>
                         :
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-wrap justify-center gap-4 py-6">
                             {
                                 filteredAssets?.map(asset =>
                                     <div key={asset._id} className="w-60 flex flex-col p-4 bg-[#132747] text-white rounded-md text-center space-y-3">
@@ -97,7 +101,7 @@ const AssetList = () => {
                                         <p>Category: {asset.selectedType}</p>
                                         <div className="flex justify-center gap-6 pt-3">
                                             <Link to={`/admin/updateAsset/${asset._id}`}>
-                                                <button className="text-xl bg-secondary text-primary p-2 rounded-md"><FaPen></FaPen></button>
+                                                <button  className="text-xl bg-secondary text-primary p-2 rounded-md"><FaPen></FaPen></button>
                                             </Link>
 
                                             <button onClick={() => handleDeleteAsset(asset._id)} className="text-xl bg-secondary text-primary p-2 rounded-md"><FaTrashAlt ></FaTrashAlt></button>

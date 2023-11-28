@@ -21,6 +21,9 @@ import UpdateAsset from "../pages/admin/UpdateAsset";
 import Package from "../components/Package";
 import Payment from "../pages/admin/Payment";
 import UpdateUser from "../components/UpdateUser";
+import AdminHome2 from "../pages/admin/AdminHome2";
+import EmployeeHome2 from "../pages/employee/EmployeeHome2";
+import UpdateCustomReq from "../pages/employee/UpdateCustomReq";
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +52,10 @@ export const router = createBrowserRouter([
         path: '/admin',
         element: <AdminHome></AdminHome>,
         children: [
+            {
+                path: '/admin',
+                element: <AdminHome2></AdminHome2>
+            },
             {
                 path: '/admin/employeeList',
                 element: <EmployeeList></EmployeeList>
@@ -102,6 +109,10 @@ export const router = createBrowserRouter([
                 element: <MyTeam></MyTeam>
             },
             {
+                path: '/employee',
+                element: <EmployeeHome2></EmployeeHome2>
+            },
+            {
                 path: '/employee/myAsset',
                 element: <MyAssets></MyAssets>
             },
@@ -112,6 +123,10 @@ export const router = createBrowserRouter([
             {
                 path: '/employee/makeCustomRequest',
                 element: <EmployeeCustomReq></EmployeeCustomReq>
+            },
+            {
+                path: '/employee/updateCustomReq/:id',
+                element: <UpdateCustomReq></UpdateCustomReq>             
             },
             {
                 path: '/employee/updateUser/:id',

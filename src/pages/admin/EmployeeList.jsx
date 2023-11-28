@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 
 const EmployeeList = () => {
@@ -27,7 +28,7 @@ const EmployeeList = () => {
             const fetchEmployeeData = async () => {
                 const emails = employeeList.map(employee => ({ email: employee }));
                 const res = await axiosSecure.get('/employees', { params: { employeeList: JSON.stringify(emails) } });
-                console.log(res.data);
+                // console.log(res.data);
                 setEmployeeData(res.data)
             }
             fetchEmployeeData();
@@ -36,7 +37,7 @@ const EmployeeList = () => {
 
     const handleDeleteEmployee = email => {
         const info = { adminEmail: user.email }
-        console.log(info);
+        // console.log(info);
         axiosSecure.delete(`/teams/${email}`, { data: info })
             .then(res => {
                 console.log(res.data);
@@ -53,10 +54,13 @@ const EmployeeList = () => {
             })
     }
 
-    console.log(employeeList);
+    // console.log(employeeList);
 
     return (
-        <div className="max-w-7xl mx-auto my-10">
+        <div className="max-w-7xl mx-auto pt-10 pb-20">
+             <Helmet>
+                <title>Employee List</title>
+            </Helmet>
             <h2>Total Employees: {employeeData.length}</h2>
             <div>
                 {

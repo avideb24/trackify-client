@@ -34,9 +34,9 @@ const Package = () => {
 
 
     return (
-        <div className="max-w-7xl mx-auto py-10">
+        <div className="max-w-7xl mx-4 md:mx-auto py-10">
             <SectionTitle heading="Our Packages"></SectionTitle>
-            <div className="flex justify-center items-center gap-5">
+            <div className="flex flex-wrap justify-center items-center gap-5">
                 {
                     packages.map(item =>
                         <div key={item.id} className='text-center w-80 p-8 bg-[#091f4c] rounded-md mt-10 space-y-4 flex flex-col justify-between'>

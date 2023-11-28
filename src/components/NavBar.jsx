@@ -1,13 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
 import Button from "./Button";
 import './NavBar.css';
+import { CiMenuFries } from "react-icons/ci";
 
 
 const NavBar = () => {
 
     return (
-        <div className="bg-primary">
-            <div className="navbar max-w-7xl mx-auto">
+        <div className="bg-primary max-w-7xl mx-4 md:mx-auto">
+            <div className="navbar ">
                 <div className="flex-1">
                     <a className="btn btn-ghost text-xl">Trackify</a>
                 </div>
@@ -48,12 +49,12 @@ const NavBar = () => {
                                 <div className="dropdown dropdown-end block sm:hidden">
                                     <label tabIndex={0} className="btn btn-ghost btn-circle">
                                         <div className="indicator">
-                                            <p>click</p>
+                                            <p className="text-3xl"><CiMenuFries></CiMenuFries></p>
                                         </div>
                                     </label>
-                                    <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 shadow">
+                                    <div tabIndex={0} className="mt-3 z-50 card card-compact dropdown-content w-52 shadow">
                                         <div className="card-body">
-                                            <div className="flex flex-col gap-2 bg-primary">
+                                            <div className="flex flex-col gap-2 bg-[#14294b] items-center p-3 rounded-sm">
                                                 <NavLink
                                                     to="/"
                                                     className={({ isActive, isPending }) =>
