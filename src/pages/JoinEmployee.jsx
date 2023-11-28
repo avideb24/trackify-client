@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import googleLogo from '../assets/googleLogo.png'
 import { GoogleAuthProvider } from 'firebase/auth';
+import { Helmet } from 'react-helmet';
 
 const image_hosting_key = import.meta.env.VITE_IMAGEBB_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -128,6 +129,9 @@ const JoinEmployee = () => {
 
     return (
         <div className="w-full flex justify-center items-center pt-8 pb-16">
+             <Helmet>
+                <title>Join Employee</title>
+            </Helmet>
             <form className="w-4/5 mx-auto  p-16 rounded-lg form-bg" onSubmit={handleSubmit}>
                 <div className="flex flex-col md:flex-row gap-5">
                     <div className="w-full md:w-1/2 md:mb-8">

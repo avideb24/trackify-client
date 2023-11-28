@@ -4,6 +4,7 @@ import useAxiosPublic from '../hooks/useAxiosPublic';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGEBB_API;
@@ -80,6 +81,9 @@ const JoinAdmin = () => {
 
     return (
         <div className=" w-full flex justify-center items-center py-10">
+            <Helmet>
+                <title>Join Admin</title>
+            </Helmet>
             <form className="w-4/5 mx-auto p-6 md:p-16 rounded-lg form-bg" onSubmit={handleSubmit}>
                 <div className="flex flex-col md:flex-row gap-5">
                     <div className="w-full md:w-1/2 md:mb-5">

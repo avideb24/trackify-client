@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
             {
                 path: '/admin/updateAsset/:id',
                 element: <UpdateAsset></UpdateAsset>,
-                loader: ({params}) => fetch(`http://localhost:5000/assets/${params.id}`)
+                loader: ({params}) => fetch(`https://trackify-server.vercel.app/assets/${params.id}`)
             },
             {
                 path: '/admin/allRequest',
@@ -96,7 +96,7 @@ export const router = createBrowserRouter([
             {
                 path: '/admin/updateUser/:id',
                 element: <UpdateUser></UpdateUser>,
-                loader: ({params}) => fetch(`http://localhost:5000/users/${params.id}`)
+                loader: ({params}) => fetch(`https://trackify-server.vercel.app/users/${params.id}`)
             },
         ]
     },
@@ -131,7 +131,7 @@ export const router = createBrowserRouter([
             {
                 path: '/employee/updateUser/:id',
                 element: <UpdateUser></UpdateUser>,
-                loader: ({params}) => fetch(`http://localhost:5000/users/${params.id}`)
+                loader: ({params}) => fetch(`https://trackify-server.vercel.app/users/${params.id}`)
             },
         ]
     },

@@ -8,6 +8,7 @@ import { CiMenuFries } from "react-icons/ci";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet";
+import logo from '../../assets/logo.png';
 
 const EmployeeNavBar = () => {
 
@@ -54,7 +55,9 @@ const EmployeeNavBar = () => {
                         adminInfo?.companyLogo ?
                             <img className="w-10" src={adminInfo.companyLogo} alt="" />
                             :
-                            <a className="btn btn-ghost text-xl">Trackify</a>
+                            <button>
+                            <img className="w-32 py-3" src={logo} alt="" />
+                        </button>
                     }
                 </div>
                 <div className="flex-none text-sm">

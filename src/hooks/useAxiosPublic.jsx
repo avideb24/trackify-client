@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosPubllic = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://trackify-server.vercel.app/'
 })
 
 const useAxiosPublic = () => {

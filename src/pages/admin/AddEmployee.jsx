@@ -58,7 +58,7 @@ const AddEmployee = () => {
             const teamData = { adminEmail, teamMembers: selectedUsers };
             // console.log(teamData);
 
-            const res = await axios.post('http://localhost:5000/teams', teamData);
+            const res = await axios.post('https://trackify-server.vercel.app/teams', teamData);
             console.log(res.data);
             if (res.data.message) {
                 refetch();

@@ -8,6 +8,7 @@ import googleLogo from '../assets/googleLogo.png';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
 
@@ -135,6 +136,9 @@ const Login = () => {
 
     return (
         <div className="w-full h-screen flex justify-center items-center py-6">
+             <Helmet>
+                <title>Login</title>
+            </Helmet>
             <form className="w-80 sm:w-96 mx-auto  py-16 px-8 rounded-lg form-bg" onSubmit={handleLogin}>
                 <div className="gap-5">
                     <div className="w-full">
