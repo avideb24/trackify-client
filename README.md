@@ -2,4 +2,4 @@
 <p>An Asset Management Project</p>
 
 <br></br>
-Live Link: #https://trackify-management.web.app/
+Live Link: https://trackify-management.web.app/
