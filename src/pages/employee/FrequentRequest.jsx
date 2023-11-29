@@ -38,7 +38,7 @@ const FrequentRequest = () => {
                                 frequestRequests?.length === 0 ? <div className="text-center">No Data</div> :
                                     <div className="flex flex-wrap gap-5 ">
                                         {
-                                            frequestRequests?.map(request =>
+                                            frequestRequests?.slice(0,4)?.map(request =>
                                                 <div key={request._id} className="w-40 text-center p-3 bg-[#162d52] rounded-md">
                                                     <p>{request.assetName}</p>
                                                     <p className="text-sm">{request.assetType}</p>

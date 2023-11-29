@@ -61,7 +61,7 @@ const CustomRequest = () => {
                         {
                             customRequests?.map(request =>
                                 <div key={request._id} className="bg-[#132747] w-96 text-center rounded-md space-y-3 p-4">
-                                    <img src={request.image} className="w-full rounded-md object-cover" alt="" />
+                                    <img src={request.image} className="w-full h-60 object-cover rounded-md" alt="" />
                                     <h2>Name: {request.name}</h2>
                                     <p>Price: ${request.price}</p>
                                     <p>Type: {request.type}</p>
