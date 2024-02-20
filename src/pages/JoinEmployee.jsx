@@ -35,7 +35,7 @@ const JoinEmployee = () => {
             const password = form.password.value;
 
             const userInfo = { name, birthDate, email, image: uploadedImageUrl, role: 'user' };
-            console.log(userInfo);
+            // console.log(userInfo);
 
             signUpUser(email, password)
                 .then(res => {
